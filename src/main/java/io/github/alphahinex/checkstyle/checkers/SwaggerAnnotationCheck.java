@@ -6,6 +6,8 @@ import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 import com.puppycrawl.tools.checkstyle.utils.AnnotationUtil;
 
+import java.util.BitSet;
+
 public class SwaggerAnnotationCheck extends AbstractCheck {
 
     private static final String ANNOTATION_SWAGGER_API = "Api";
@@ -79,17 +81,18 @@ public class SwaggerAnnotationCheck extends AbstractCheck {
         if (!method.branchContains(TokenTypes.ANNOTATION)) {
             return;
         }
-        boolean isRequestMapping = false;
-        boolean hasSwaggerAnnotation = false;
+        BitSet bitSet = new BitSet(2);
         DetailAST firstAnnotation = AnnotationUtil.getAnnotationHolder(method).getFirstChild();
-        for (DetailAST anno = firstAnnotation; anno != null && anno.getType() == TokenTypes.ANNOTATION; anno = anno.getNextSibling()) {
+        for (DetailAST anno = firstAnnotation; anno.getType() == TokenTypes.ANNOTATION; anno = anno.getNextSibling()) {
             String annotationName = FullIdent.createFullIdent(anno.getFirstChild().getNextSibling()).getText();
             if (annotationName.endsWith(REQUEST_MAPPING_SUFFIX)) {
-                isRequestMapping = true;
-            } else if (annotationName.equals(ANNOTATION_SWAGGER_OPERATION)) {
-                hasSwaggerAnnotation = true;
+                bitSet.set(0);
+            } else if (ANNOTATION_SWAGGER_OPERATION.equals(annotationName)) {
+                bitSet.set(1);
             }
         }
+        boolean isRequestMapping = bitSet.get(0);
+        boolean hasSwaggerAnnotation = bitSet.get(1);
         if (isRequestMapping && !hasSwaggerAnnotation) {
             String message = "There must be swagger annotation '@ApiOperation'on the method!";
             log(method.getLineNo(), message);
@@ -98,7 +101,7 @@ public class SwaggerAnnotationCheck extends AbstractCheck {
 
     @Override
     public int[] getAcceptableTokens() {
-        return new int[0];
+        return getDefaultTokens();
     }
 
     @Override

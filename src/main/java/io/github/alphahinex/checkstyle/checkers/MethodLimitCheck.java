@@ -8,7 +8,8 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
  * 限制类方法的数量，默认最大值为30
  */
 public class MethodLimitCheck extends AbstractCheck {
-    private int max = 30;
+
+    private transient int max = 30;
 
     public void setMax(int max) {
         this.max = max;
@@ -37,11 +38,12 @@ public class MethodLimitCheck extends AbstractCheck {
 
     @Override
     public int[] getAcceptableTokens() {
-        return new int[0];
+        return getDefaultTokens();
     }
 
     @Override
     public int[] getRequiredTokens() {
         return new int[0];
     }
+
 }
