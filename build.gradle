@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
+            credentials(PasswordCredentials) {
+                username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
+                password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
+            }
+        }
+    }
+    dependencies {
+        classpath 'io.github.spring-roll:roll-dev-configs:0.0.4.RELEASE'
+    }
+}
+
+plugins {
+    id "com.github.spotbugs" version "2.0.0"
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://maven.pkg.github.com/AlphaHinex/checkstyle-checkers'
+        credentials(PasswordCredentials) {
+            username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
+            password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'utf-8'
+    options.compilerArgs = [
+        '-Xlint:-options',
+        '-Xlint:deprecation',
+        '-Xlint:unchecked',
+        '-Werror'
+    ]
+}
+
+tasks.withType(GroovyCompile) {
+    options.encoding = 'utf-8'
+    options.compilerArgs = ['-Xlint:-options']
+    groovyOptions.encoding = 'utf-8'
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+apply plugin: 'maven-publish'
+
+apply from: this.getClass().getClassLoader().getResource("META-INF/configs/dependencies.gradle")
+//apply from: this.getClass().getClassLoader().getResource("META-INF/configs/quality/codeQuality.gradle")
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = 'io.github.alphahinex'
+version = '1.0.0-SNAPSHOT'
+
+test {
+    reports.html.enabled = false
+    reports.junitXml.enabled = false
+    //project unit parallel
+    //maxParallelForks = 2
+    //GC
+    forkEvery = 100
+}
+
+java {
+    withSourcesJar()
+}
+
+dependencies {
+        implementation platform("org.springframework.boot:spring-boot-dependencies:${versions.spring_boot}")
+        implementation libraries.checkstyle
+    testImplementation libraries.roll_test
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri('https://maven.pkg.github.com/AlphaHinex/checkstyle-checkers')
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
+                password = project.findProperty("gpr.key") ?: System.getenv("GH_PKG_ADMIN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}

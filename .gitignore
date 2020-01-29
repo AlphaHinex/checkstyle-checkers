@@ -1,0 +1,31 @@
+# Ignore temp files and folders
+.DS_Store
+.zip
+*.bak
+
+# Ignore eclipse config files and folders
+.settings
+.project
+.classpath
+
+# Ignore build related
+.gradle
+build
+bin
+
+# Ignore IntellJ IDEA files and folders
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.ideaDataSources/
+
+# Ignore MANIFEST.MF
+MANIFEST.MF
+
+# Ignore spring boot configuration meta info
+**/META-INF/spring-configuration-metadata.json
+
+# Ignore lombok config
+lombok.config
