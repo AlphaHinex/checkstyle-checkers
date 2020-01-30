@@ -2,6 +2,7 @@ Checkstyle Checkers
 ===================
 
 [![Build Status](https://travis-ci.org/AlphaHinex/checkstyle-checkers.svg?branch=master)](https://travis-ci.org/AlphaHinex/checkstyle-checkers)
+[![Coverage Status](https://codecov.io/gh/AlphaHinex/checkstyle-checkers/branch/master/graph/badge.svg)](https://codecov.io/gh/AlphaHinex/checkstyle-checkers)
 
 Customize Checkstyle checkers, inspired by https://github.com/blundell/CreateYourOwnCheckStyleCheck
 

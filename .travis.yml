@@ -1,0 +1,13 @@
+language: java
+
+jdk: openjdk8
+
+branches:
+  only:
+    - master
+
+script: ./gradlew check
+
+after_success:
+  # upload report to codecov
+  - bash <(curl -s https://codecov.io/bash)
