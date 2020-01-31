@@ -2,7 +2,6 @@ package io.github.alphahinex.checkstyle.checkers
 
 import com.puppycrawl.tools.checkstyle.Checker
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException
-import io.github.alphahinex.checkstyle.checkers.BaseCheckTest
 import org.junit.Before
 import org.junit.Test
 
