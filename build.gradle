@@ -31,22 +31,6 @@ repositories {
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'utf-8'
-    options.compilerArgs = [
-        '-Xlint:-options',
-        '-Xlint:deprecation',
-        '-Xlint:unchecked',
-        '-Werror'
-    ]
-}
-
-tasks.withType(GroovyCompile) {
-    options.encoding = 'utf-8'
-    options.compilerArgs = ['-Xlint:-options']
-    groovyOptions.encoding = 'utf-8'
-}
-
 apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'groovy'
@@ -61,10 +45,6 @@ targetCompatibility = 1.8
 
 group = 'io.github.alphahinex'
 version = '1.0.0-SNAPSHOT'
-
-java {
-    withSourcesJar()
-}
 
 dependencies {
         implementation platform("org.springframework.boot:spring-boot-dependencies:${versions.spring_boot}")
