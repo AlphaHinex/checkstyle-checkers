@@ -11,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'io.github.spring-roll:roll-dev-configs:0.0.4.RELEASE'
+        classpath 'io.github.spring-roll:roll-dev-configs:0.0.5-SNAPSHOT'
     }
 }
 
@@ -21,6 +21,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven {
         url 'https://maven.pkg.github.com/AlphaHinex/checkstyle-checkers'
         credentials(PasswordCredentials) {
@@ -53,7 +54,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
 apply from: this.getClass().getClassLoader().getResource("META-INF/configs/dependencies.gradle")
-//apply from: this.getClass().getClassLoader().getResource("META-INF/configs/quality/codeQuality.gradle")
+apply from: this.getClass().getClassLoader().getResource("META-INF/configs/quality/codeQuality.gradle")
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
