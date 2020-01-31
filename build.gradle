@@ -62,15 +62,6 @@ targetCompatibility = 1.8
 group = 'io.github.alphahinex'
 version = '1.0.0-SNAPSHOT'
 
-test {
-    reports.html.enabled = false
-    reports.junitXml.enabled = false
-    //project unit parallel
-    //maxParallelForks = 2
-    //GC
-    forkEvery = 100
-}
-
 java {
     withSourcesJar()
 }
