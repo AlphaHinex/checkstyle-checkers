@@ -11,12 +11,12 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'io.github.spring-roll:roll-dev-configs:0.0.5-SNAPSHOT'
+        classpath 'io.github.spring-roll:roll-dev-configs:0.0.5.RELEASE'
     }
 }
 
 plugins {
-    id "com.github.spotbugs" version "2.0.0"
+    id "com.github.spotbugs" version "3.0.0"
 }
 
 repositories {
@@ -44,7 +44,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group = 'io.github.alphahinex'
-version = '1.0.0-SNAPSHOT'
+version = '1.0.0.RELEASE'
 
 dependencies {
         implementation platform("org.springframework.boot:spring-boot-dependencies:${versions.spring_boot}")
