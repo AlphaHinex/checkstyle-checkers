@@ -3,32 +3,38 @@ Checkstyle Checkers
 
 [![Build Status](https://travis-ci.org/AlphaHinex/checkstyle-checkers.svg?branch=master)](https://travis-ci.org/AlphaHinex/checkstyle-checkers)
 [![Coverage Status](https://codecov.io/gh/AlphaHinex/checkstyle-checkers/branch/master/graph/badge.svg)](https://codecov.io/gh/AlphaHinex/checkstyle-checkers)
+[![](https://jitpack.io/v/AlphaHinex/checkstyle-checkers.svg)](https://jitpack.io/#AlphaHinex/checkstyle-checkers)
 
 Customize Checkstyle checkers, inspired by https://github.com/blundell/CreateYourOwnCheckStyleCheck
-
-Prepare
--------
-
-Configure GitHub Packages Registry follow [GitHub Help](https://help.github.com/en/github/managing-packages-with-github-packages/using-github-packages-with-your-projects-ecosystem) or [GitHub Packages in Action](https://alphahinex.github.io/2020/01/17/github-packages-in-action/)
 
 Install
 -------
 
-### Maven
+### Use GitHub Packages Registry
+
+Follow [GitHub Help](https://help.github.com/en/github/managing-packages-with-github-packages/using-github-packages-with-your-projects-ecosystem) or [GitHub Packages in Action](https://alphahinex.github.io/2020/01/17/github-packages-in-action/) to configure settings, and then add dependency:
+
+#### Maven
 
 ````
 <dependency>
      <groupId>io.github.alphahinex</groupId>
      <artifactId>checkstyle-checkers</artifactId>
-     <version>1.0.0.RELEASE</version>
+     <version>1.0.1.RELEASE</version>
 </dependency>
 ````
 
-### Gradle
+#### Gradle
 
 ````
-'io.github.alphahinex:checkstyle-checkers:1.0.0.RELEASE'
+'io.github.alphahinex:checkstyle-checkers:1.0.1.RELEASE'
 ````
+
+
+### Or Use JitPack
+
+Follow `How to` in https://jitpack.io/#AlphaHinex/checkstyle-checkers
+
 
 How to use
 ----------

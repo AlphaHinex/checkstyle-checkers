@@ -1,27 +1,10 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        maven {
-            url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
-            credentials(PasswordCredentials) {
-                username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
-                password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
-            }
-        }
-    }
-    dependencies {
-        classpath 'io.github.spring-roll:roll-dev-configs:0.0.5.RELEASE'
-    }
-}
-
 plugins {
     id "com.github.spotbugs" version "3.0.0"
 }
 
 repositories {
-    mavenCentral()
     mavenLocal()
+    mavenCentral()
     maven {
         url 'https://maven.pkg.github.com/AlphaHinex/checkstyle-checkers'
         credentials(PasswordCredentials) {
@@ -37,19 +20,18 @@ apply plugin: 'groovy'
 
 apply plugin: 'maven-publish'
 
-apply from: this.getClass().getClassLoader().getResource("META-INF/configs/dependencies.gradle")
-apply from: this.getClass().getClassLoader().getResource("META-INF/configs/quality/codeQuality.gradle")
+//apply from: this.getClass().getClassLoader().getResource("META-INF/configs/quality/codeQuality.gradle")
+apply from: "$rootDir/gradle/quality/codeQuality.gradle"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group = 'io.github.alphahinex'
-version = '1.0.0.RELEASE'
+version = '1.0.1.RELEASE'
 
 dependencies {
-        implementation platform("org.springframework.boot:spring-boot-dependencies:${versions.spring_boot}")
-        implementation libraries.checkstyle
-    testImplementation libraries.roll_test
+        implementation 'com.puppycrawl.tools:checkstyle:8.14'
+    testImplementation 'org.codehaus.groovy:groovy-all:2.5.8'
 }
 
 publishing {

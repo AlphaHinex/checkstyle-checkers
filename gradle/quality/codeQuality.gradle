@@ -1,0 +1,117 @@
+apply plugin: 'checkstyle'
+apply plugin: 'codenarc'
+apply plugin: "com.github.spotbugs"
+apply plugin: 'jacoco'
+apply plugin: 'pmd'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'utf-8'
+    options.compilerArgs = [
+        '-Xlint:-options',
+        '-Xlint:deprecation',
+        '-Xlint:unchecked',
+        '-Werror'
+    ]
+}
+
+tasks.withType(GroovyCompile) {
+    options.encoding = 'utf-8'
+    options.compilerArgs = ['-Xlint:-options']
+    groovyOptions.encoding = 'utf-8'
+}
+
+dependencies {
+    pmd 'com.alibaba.p3c:p3c-pmd:2.0.0'
+}
+
+def configDir = "$rootDir/gradle/quality"
+ext.checkstyleConfigDir = "$configDir/checkstyle"
+
+checkstyle {
+    configFile = new File(checkstyleConfigDir, "checkstyle.xml")
+    configProperties.checkstyleConfigDir = checkstyleConfigDir
+    toolVersion = '8.14'
+}
+
+codenarc {
+    configFile = new File(configDir, "codenarc.xml")
+    toolVersion = '1.2.1'
+}
+
+pmd {
+    // According to https://github.com/alibaba/p3c/blob/p3c-pmd-2.0.0/p3c-pmd/pom.xml#L17
+    toolVersion = '6.15.0'
+    ruleSets = ["category/java/errorprone.xml", "category/java/bestpractices.xml"]
+    rulePriority 4
+}
+
+spotbugs {
+    excludeFilter = file("$configDir/spotbugs/excludeFilter.xml")
+}
+
+spotbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+spotbugsTest {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.4"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                '**/DelegatingServletInputStream**',
+                '**/HeaderValueHolder**'
+            ])
+        }))
+    }
+}
+
+configurations.codenarc.resolutionStrategy.force('org.codehaus.groovy:groovy-all:2.5.8')
+
+tasks.withType(Pmd) {
+    ruleSetFiles = files(
+        "$configDir/pmd/ali-comment.xml",
+        "$configDir/pmd/ali-concurrent.xml",
+        "$configDir/pmd/ali-constant.xml",
+        "$configDir/pmd/ali-exception.xml",
+        "$configDir/pmd/ali-flowcontrol.xml",
+        "$configDir/pmd/ali-naming.xml",
+        "$configDir/pmd/ali-oop.xml",
+        "$configDir/pmd/ali-orm.xml",
+        "$configDir/pmd/ali-other.xml",
+        "$configDir/pmd/ali-set.xml"
+    )
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+test {
+    reports.html.enabled = false
+    reports.junitXml.enabled = false
+    //project unit parallel
+    //maxParallelForks = 2
+    //GC
+    forkEvery = 100
+}
+
+check.dependsOn jacocoTestReport
+build.dependsOn jacocoTestReport
