@@ -12,22 +12,24 @@ Install
 
 ### Use GitHub Packages Registry
 
+> Publish to GPR manually by `./gradlew publish`
+
 Follow [GitHub Help](https://help.github.com/en/github/managing-packages-with-github-packages/using-github-packages-with-your-projects-ecosystem) or [GitHub Packages in Action](https://alphahinex.github.io/2020/01/17/github-packages-in-action/) to configure settings, and then add dependency:
 
 #### Maven
 
 ````
 <dependency>
-     <groupId>io.github.alphahinex</groupId>
+     <groupId>com.github.alphahinex</groupId>
      <artifactId>checkstyle-checkers</artifactId>
-     <version>1.0.1.RELEASE</version>
+     <version>2.0.0.RELEASE</version>
 </dependency>
 ````
 
 #### Gradle
 
 ````
-'io.github.alphahinex:checkstyle-checkers:1.0.1.RELEASE'
+'com.github.alphahinex:checkstyle-checkers:2.0.0.RELEASE'
 ````
 
 

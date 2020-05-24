@@ -1,4 +1,4 @@
-package io.github.springroll.dev.configs.checkstyle;
+package com.github.alphahinex.checkstyle.checkers;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package io.github.alphahinex.checkstyle.checkers;
+package com.github.alphahinex.checkstyle.checkers;
 
 import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;

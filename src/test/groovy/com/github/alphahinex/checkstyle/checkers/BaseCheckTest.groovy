@@ -1,4 +1,4 @@
-package io.github.alphahinex.checkstyle.checkers
+package com.github.alphahinex.checkstyle.checkers
 
 import com.puppycrawl.tools.checkstyle.Checker
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration

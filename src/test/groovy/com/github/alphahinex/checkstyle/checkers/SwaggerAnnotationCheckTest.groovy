@@ -1,11 +1,11 @@
-package io.github.alphahinex.checkstyle.checkers
+package com.github.alphahinex.checkstyle.checkers
 
 import com.puppycrawl.tools.checkstyle.Checker
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException
 import org.junit.Before
 import org.junit.Test
 
-class MethodLimitCheckTest extends BaseCheckTest {
+class SwaggerAnnotationCheckTest extends BaseCheckTest {
 
     private Checker checker
 
@@ -13,15 +13,15 @@ class MethodLimitCheckTest extends BaseCheckTest {
 
     @Before
     void setUp() throws CheckstyleException {
-        checker = prepareCheckStyleChecker(MethodLimitCheck.class, Collections.singletonMap("max", "10"))
+        checker = prepareCheckStyleChecker(SwaggerAnnotationCheck.class, Collections.emptyMap())
         files = prepareFilesToBeChecked()
     }
 
     @Test
     void test() throws CheckstyleException {
-        assert checker.process(files) == 1
+        assert checker.process(files)  == 6
 
-        def check = new MethodLimitCheck()
+        def check = new SwaggerAnnotationCheck()
         assert check.getAcceptableTokens() == check.getDefaultTokens()
     }
 
